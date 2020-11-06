@@ -11,14 +11,15 @@ Compilation of useful links for installation - there's already comprehensive doc
 What you'll need:
 
 
-1) Linux distro (I was using Windows Linux Subsystem) : https://docs.microsoft.com/en-gb/windows/wsl/install-win10
+1) Linux distro (I was using Windows Linux Subsystem) : <a href="https://docs.microsoft.com/en-gb/windows/wsl/install-win10" target="_blank">https://docs.microsoft.com/en-gb/windows/wsl/install-win10</a>
 
 -- Make sure to enable Virtualization in BIOS (check Task Manager > Performance > CPU > Virtualization Enabled)
 
 -- Make sure to update all linux stuff
 
 
-2) Follow the installation steps here: https://jekyllrb.com/docs/installation/windows/
+2) Follow the installation steps here: <a href="https://jekyllrb.com/docs/installation/windows/" target="_blank">https://jekyllrb.com/docs/installation/windows/</a>
+
 
 -- Make sure to install and update gem
 
@@ -29,7 +30,8 @@ gem install minima
 {% endhighlight %}
 
 
-3) Setup your GitHub repository: https://docs.github.com/en/free-pro-team@latest/github/working-with-github-pages/creating-a-github-pages-site-with-jekyll
+3) Setup your GitHub repository: <a href="https://docs.github.com/en/free-pro-team@latest/github/working-with-github-pages/creating-a-github-pages-site-with-jekyll" target="_blank">https://docs.github.com/en/free-pro-team@latest/github/working-with-github-pages/creating-a-github-pages-site-with-jekyll</a>
+
 
 -- The installation step proposed in the link did not work for me, so try below if you have the same error below
 
@@ -48,7 +50,7 @@ $ jekyll new .
 -- If you have 2FA enabled, don't forget to generate developer tokens and use that as your accounts' password
 
 
-5) Setup your subdomain : https://docs.github.com/en/free-pro-team@latest/github/working-with-github-pages/about-custom-domains-and-github-pages
+5) Setup your subdomain : <a href="https://docs.github.com/en/free-pro-team@latest/github/working-with-github-pages/about-custom-domains-and-github-pages" target="_blank">https://docs.github.com/en/free-pro-team@latest/github/working-with-github-pages/about-custom-domains-and-github-pages</a>
 
 -- Basically just update CNAME record and point it to yourrepository.github.io
 
