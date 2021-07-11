@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Some maintenaces"
-date:   2020-07-11 22:14:00 +0800
+date:   2021-07-11 22:14:00 +0800
 categories: guides
 ---
 
@@ -57,6 +57,13 @@ $ sudo amazon-linux-extras enable php7.4
 {% highlight terminal %}
 $ sudo yum clean metadata
 $ sudo yum install php php-{pear,cgi,common,curl,mbstring,gd,mysqlnd,gettext,bcmath,json,xml,fpm,intl,zip}
+{% endhighlight %}
+
+
++++ REMINDER ON IMPORTANT PATHS +++
+{% highlight terminal %}
+/var/www/html
+
 {% endhighlight %}
 
 1) WORDPRESS >> wp-config.php file.
