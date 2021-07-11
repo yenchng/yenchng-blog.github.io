@@ -63,8 +63,8 @@ $ sudo yum install php php-{pear,cgi,common,curl,mbstring,gd,mysqlnd,gettext,bcm
 
 +++ REMINDER ON IMPORTANT PATHS +++
 {% highlight terminal %}
-/var/www/html
-
+/var/www/html/
+/etc/php-fpm.d/
 {% endhighlight %}
 
 +++ REMINDER ON IMPORTANT COMMANDS +++
