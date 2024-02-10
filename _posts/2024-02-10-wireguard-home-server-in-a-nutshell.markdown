@@ -79,7 +79,7 @@ cat wg-private-client-1.key
 ```
 
 ### Create client config
-create a client config file e.g. ``nano ~/wg-client.conf``
+create a client config file e.g. ``nano ~/wg-client-1.conf``
 ```
 # define the local WireGuard interface (client)
 [Interface]
