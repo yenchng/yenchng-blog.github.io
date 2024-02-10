@@ -146,7 +146,7 @@ sudo systemctl status wg-quick@wg0.service
 ```
 
 ## References
-https://www.digitalocean.com/community/tutorials/how-to-set-up-wireguard-on-ubuntu-22-04#step-4-adjusting-the-wireguard-server-s-network-configuration
-https://wireguard.how/client/ios/
-https://gist.github.com/chrisswanda/88ade75fc463dcf964c6411d1e9b20f4
-https://www.wireguardconfig.com
+- https://www.digitalocean.com/community/tutorials/how-to-set-up-wireguard-on-ubuntu-22-04#step-4-adjusting-the-wireguard-server-s-network-configuration
+- https://wireguard.how/client/ios/
+- https://gist.github.com/chrisswanda/88ade75fc463dcf964c6411d1e9b20f4
+- https://www.wireguardconfig.com
