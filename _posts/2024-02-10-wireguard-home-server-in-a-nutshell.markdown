@@ -120,11 +120,8 @@ PublicKey = <INSERT YOUR CLIENT PUBLIC KEY>
 AllowedIPs = <DESIRED WIREGUARD CLIENT IP ADDRESS WITHIN SAME SUBNET & SPECIFIED IN CLIENT FILE e.g. 10.8.0.101/32>
 ```
 
-Sync latest config change
-```
-sudo wg-quick up wg0
-sudo wg-quick down wg0
-```
+Sync latest config change by restarting service.
+
 
 ### Print Client QR and setup on mobile
 ```qrencode --read-from=wg-client-1.conf --type=UTF8```
