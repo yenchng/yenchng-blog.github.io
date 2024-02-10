@@ -7,8 +7,39 @@ categories: test
 
 # Installation
 
-``sudo apt update
-sudo apt install wireguard``
+```
+sudo apt update
+sudo apt install wireguard
+```
+
+# Server Set Up
+
+## Generate Keys, Set Perms
+```
+wg genkey | sudo tee /etc/wireguard/private.key
+sudo chmod go= /etc/wireguard/private.key
+
+sudo cat /etc/wireguard/private.key | wg pubkey | sudo tee /etc/wireguard/public.key
+```
+
+## Setup Config
+```
+sudo nano /etc/wireguard/wg0.conf
+```
+
+## Enable Internet via VPN
+``sudo nano /etc/sysctl.conf``
+
+add to bottom of config
+```
+net.ipv4.ip_forward=1
+```
+
+check and confirm
+``sudo sysctl -p``
+
+
+
 
 [References]
 https://www.digitalocean.com/community/tutorials/how-to-set-up-wireguard-on-ubuntu-22-04#step-4-adjusting-the-wireguard-server-s-network-configuration
