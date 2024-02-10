@@ -10,6 +10,7 @@ categories: test
 ```
 sudo apt update
 sudo apt install wireguard
+sudo apt install qrencode
 ```
 
 ## Server Set Up
@@ -109,10 +110,40 @@ Endpoint = <INSERT YOUR PUBLIC SERVER DOMAIN:PORT>
 PersistentKeepalive = 25
 ```
 
-### Add client to Server peer list
+### Add client to Server's peer list
 Print client's public key via ``cat wg-public-client-1.key``
 
 Edit server configuration file via ``sudo nano /etc/wireguard/wg0.conf`` and add ``[Peer]`` section at the bottom
+```
+[Peer]
+PublicKey = <INSERT YOUR CLIENT PUBLIC KEY>
+AllowedIPs = <DESIRED WIREGUARD CLIENT IP ADDRESS WITHIN SAME SUBNET & SPECIFIED IN CLIENT FILE e.g. 10.8.0.101/32>
+```
+
+Sync latest config change
+```
+sudo wg-quick up wg0
+sudo wg-quick down wg0
+```
+
+### Print Client QR and setup on mobile
+```qrencode --read-from=wg-client-1.conf --type=UTF8```
+
+
+## Quick Commands
+
+Start/stop interface
+```
+sudo wg-quick up wg0
+sudo wg-quick down wg0
+```
+
+Start/stop service  
+```
+sudo systemctl stop wg-quick@wg0.service
+sudo systemctl start wg-quick@wg0.service
+sudo systemctl status wg-quick@wg0.service
+```
 
 ## References
 https://www.digitalocean.com/community/tutorials/how-to-set-up-wireguard-on-ubuntu-22-04#step-4-adjusting-the-wireguard-server-s-network-configuration
