@@ -135,7 +135,7 @@ sudo wg-quick up wg0
 sudo wg-quick down wg0
 ```
 
-Start/stop service  
+Start/stop service (preferred)
 ```
 sudo systemctl stop wg-quick@wg0.service
 sudo systemctl start wg-quick@wg0.service
