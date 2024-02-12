@@ -75,7 +75,7 @@ Generate client keys from the server and print it to check.
 ```
 (umask 077 && wg genkey > wg-private-client-1.key)
 wg pubkey < wg-private-client-1.key > wg-public-client-1.key
-cat wg-private-client-1.key
+cat wg-private-client-1.key && cat wg-public-client-1.key
 ```
 
 ### Create client config
@@ -124,8 +124,7 @@ Sync latest config change by restarting service.
 
 
 ### Print Client QR and setup on mobile
-```qrencode --read-from=wg-client-1.conf --type=UTF8```
-
+```echo "My VPN QR Code" && qrencode --read-from=wg-client-1.conf --type=UTF8```
 
 ## Quick Commands
 
