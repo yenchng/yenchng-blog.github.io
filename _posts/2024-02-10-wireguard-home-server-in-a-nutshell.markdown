@@ -41,11 +41,17 @@ Address = 10.8.0.1/24
 SaveConfig = true
 PostUp = ufw route allow in on wg0 out on eno1
 PostUp = iptables -t nat -I POSTROUTING -o eno1 -j MASQUERADE
+PostUp = iptables -I FORWARD -i wg0 -o wg0 -j REJECT
+PostUp = iptables -I FORWARD -i wg0 -s 10.8.0.101/32 -d 10.8.0.0/24 -j ACCEPT
 PreDown = ufw route delete allow in on wg0 out on eno1
 PreDown = iptables -t nat -D POSTROUTING -o eno1 -j MASQUERADE
+PreDown = iptables -D FORWARD -i wg0 -o wg0 -j REJECT
+PreDown = iptables -D FORWARD -i wg0 -s 10.8.0.101/32 -d 10.8.0.0/24 -j ACCEPT
 ListenPort = 51820
 PrivateKey = <INSERT YOUR SERVER PRIVATE KEY FROM private.key file>
 ```
+
+Notes: ``iptables -I FORWARD -i wg0 -o wg0 -j REJECT`` prevents child nodes from seeing each other whereas ``iptables -I FORWARD -i wg0 -s 10.8.0.101/32 -d 10.8.0.0/24 -j ACCEPT`` specifically whitelists .101 node to be able to view other nodes. -D is just the inverse (delete) during shutdown.
 
 ### Firewall Port Forwarding
 Allow Wireguard traffic through your selected port (default 51820) and restart firewall
@@ -280,3 +286,4 @@ sudo systemctl status wg-quick@wg0.service
 - https://gist.github.com/chrisswanda/88ade75fc463dcf964c6411d1e9b20f4
 - https://www.wireguardconfig.com
 - https://github.com/cyyself/wg-bench
+- https://www.lautenbacher.io/en/lamp-en/wireguard-prohibit-communication-between-clients-client-isolation/
