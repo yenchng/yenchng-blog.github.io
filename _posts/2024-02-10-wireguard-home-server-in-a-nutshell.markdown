@@ -51,7 +51,7 @@ ListenPort = 51820
 PrivateKey = <INSERT YOUR SERVER PRIVATE KEY FROM private.key file>
 ```
 
-Notes: ``iptables -I FORWARD -i wg0 -o wg0 -j REJECT`` prevents child nodes from seeing each other whereas ``iptables -I FORWARD -i wg0 -s 10.8.0.101/32 -d 10.8.0.0/24 -j ACCEPT`` specifically whitelists .101 node to be able to view other nodes. -D is just the inverse (delete) during shutdown.
+Notes: ``iptables -I FORWARD -i wg0 -o wg0 -j REJECT`` prevents child nodes from seeing each other whereas ``iptables -I FORWARD -i wg0 -s 10.8.0.101/32 -d 10.8.0.0/24 -j ACCEPT`` specifically whitelists .101 node to be able to view other nodes. -D is just the inverse (delete) during shutdown. Also, need to check at client side's firewall in case if it blocks all traffic by default - then add an entry to grant permission to remote IP (i.e. 10.8.0.199) as needed.
 
 ### Firewall Port Forwarding
 Allow Wireguard traffic through your selected port (default 51820) and restart firewall
