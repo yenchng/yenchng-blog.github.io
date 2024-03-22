@@ -126,6 +126,123 @@ Sync latest config change by restarting service.
 ### Print Client QR and setup on mobile
 ```echo "My VPN QR Code" && qrencode --read-from=wg-client-1.conf --type=UTF8```
 
+## Automation with script
+Simplified deployment of client so you don't have to do it manually every time
+```
+#!/bin/bash
+
+while true; do
+	read -p "Enter the user's name: " vpnusername
+	read -p "Enter the device's type: " vpndevicetype
+    read -p "Enter a number (0-255): " num
+    if [[ $num =~ ^[0-9]+$ && $num -ge 0 && $num -le 255 ]]; then
+        echo "Valid input: $num"
+		
+		# Generate the Keys
+		(umask 077 && wg genkey > wg-private-client-$num.key)
+		wg pubkey < wg-private-client-$num.key > wg-public-client-$num.key
+		cat wg-private-client-$num.key && cat wg-public-client-$num.key
+		
+		# Generate text file with predefined text
+		cat <<EOF > "wg-client-$num.conf"
+#############################################
+##   $vpnusername $vpndevicetype   
+#############################################
+# define the local WireGuard interface (client)
+[Interface]
+
+# contents of wg-private-client.key
+PrivateKey = $(<"wg-private-client-$num.key")
+
+# the IP address of this client on the WireGuard network
+Address=10.8.0.$num/32
+
+# define the remote WireGuard interface (server)
+
+# DNS Resolver by our internal DNS server/router's IP address (e.g. 192.168.1.1)
+DNS=<INSERT DNS IP>
+
+[Peer]
+
+# from `sudo wg show wg0 public-key`
+PublicKey = <INSERT YOUR SERVER PUBLIC KEY>
+
+# the IP address of the server on the WireGuard network
+AllowedIPs = 0.0.0.0/0, 192.168.0.0/24
+
+# public IP address and port of the WireGuard server (e.g. dns.example.com:51820)
+Endpoint = <INSERT YOUR PUBLIC SERVER DOMAIN:PORT>
+
+# Behind NAT and to keep connection alive
+PersistentKeepalive = 25
+EOF
+		
+		echo "File 'wg-client-$num.conf' has been saved."
+		
+		
+		# Update Server Config?
+		echo "Edit server configuration file via sudo nano /etc/wireguard/wg0.conf and add [Peer] section at the bottom"
+
+		# Output the lines in a nice format
+        cat <<EOF
+
+[Peer]
+PublicKey = $(<"wg-public-client-$num.key")
+AllowedIPs = 10.8.0.$num/32
+
+EOF
+		
+		while true; do
+			read -p "Do you want me to add it for you? (Y/N): " choice
+			if [[ $choice == "Y" || $choice == "y" ]]; then
+				# Backup /etc/wireguard/wg0.conf
+				sudo cp /etc/wireguard/wg0.conf ~/backups/server/wg0.bak.$(date +%Y%m%d%H%M%S)
+
+				# Edit /etc/wireguard/wg0.conf
+				sudo bash -c "cat <<EOF >> /etc/wireguard/wg0.conf
+
+[Peer]
+PublicKey = $(<"wg-public-client-$num.key")
+AllowedIPs = 10.8.0.$num/32
+EOF"
+
+				echo "File /etc/wireguard/wg0.conf has been updated."
+				break
+			elif [[ $choice == "N" || $choice == "n" ]]; then
+				echo "Skipping Server Config Edit..."
+				break
+			else
+				echo "Please enter Y or N."
+			fi
+		done
+		
+		# Generate QR Code?
+		echo "To simplify setup on mobile, I recommend you to Print Client QR so that you can scan it"
+
+		while true; do
+			read -p "Do you want me to generate QR Code? (Y/N): " choice
+			if [[ $choice == "Y" || $choice == "y" ]]; then
+				echo "QR Code for $vpnusername $vpndevicetype" && qrencode --read-from=wg-client-$num.conf --type=UTF8
+				break
+			elif [[ $choice == "N" || $choice == "n" ]]; then
+				echo "Skipping QR Code..."
+				break
+			else
+				echo "Please enter Y or N."
+			fi
+		done
+		
+		# End
+		echo "We're at the end of program! Terminating..."
+		
+        break
+    else
+        echo "Invalid input. Please enter a number within the range of 0-255."
+    fi
+done
+```
+
+
 ## Quick Commands
 
 Start/stop interface
@@ -140,6 +257,7 @@ sudo systemctl stop wg-quick@wg0.service
 sudo systemctl start wg-quick@wg0.service
 sudo systemctl status wg-quick@wg0.service
 ```
+
 
 ## References
 - https://www.digitalocean.com/community/tutorials/how-to-set-up-wireguard-on-ubuntu-22-04#step-4-adjusting-the-wireguard-server-s-network-configuration
