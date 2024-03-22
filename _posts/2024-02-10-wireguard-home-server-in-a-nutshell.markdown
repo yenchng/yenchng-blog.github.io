@@ -274,3 +274,4 @@ sudo systemctl status wg-quick@wg0.service
 - https://wireguard.how/client/ios/
 - https://gist.github.com/chrisswanda/88ade75fc463dcf964c6411d1e9b20f4
 - https://www.wireguardconfig.com
+- https://github.com/cyyself/wg-bench
