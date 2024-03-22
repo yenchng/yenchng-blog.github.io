@@ -213,6 +213,9 @@ EOF
 				# Backup /etc/wireguard/wg0.conf
 				sudo cp /etc/wireguard/wg0.conf ~/backups/server/wg0.bak.$(date +%Y%m%d%H%M%S)
 
+				# Shut Down WG0 interface
+				sudo wg-quick down wg0
+
 				# Edit /etc/wireguard/wg0.conf
 				sudo bash -c "cat <<EOF >> /etc/wireguard/wg0.conf
 
@@ -222,6 +225,10 @@ AllowedIPs = 10.8.0.$num/32
 EOF"
 
 				echo "File /etc/wireguard/wg0.conf has been updated."
+				
+				# Start WG0 interface
+				sudo wg-quick up wg0
+
 				break
 			elif [[ $choice == "N" || $choice == "n" ]]; then
 				echo "Skipping Server Config Edit..."
