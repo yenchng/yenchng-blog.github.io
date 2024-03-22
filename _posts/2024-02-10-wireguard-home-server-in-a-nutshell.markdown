@@ -128,6 +128,15 @@ Sync latest config change by restarting service.
 
 ## Automation with script
 Simplified deployment of client so you don't have to do it manually every time
+
+### Create script
+Create the file i.e. ``nano script.sh``
+
+### Modify Permission to make it executable
+Run ``chmod +x script.sh``
+
+### Open the script
+Run ``nano script.sh`` and edit it, add below code, and modify it accordingly as needed
 ```
 #!/bin/bash
 
@@ -241,7 +250,8 @@ EOF"
     fi
 done
 ```
-
+### Run the Script
+``./script.sh``
 
 ## Quick Commands
 
