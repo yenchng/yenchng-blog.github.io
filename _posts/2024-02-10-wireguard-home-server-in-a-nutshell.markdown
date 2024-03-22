@@ -266,6 +266,50 @@ done
 ### Run the Script
 ``./script.sh``
 
+## Performance Benchmark Comparisons
+Install ``wireguard-tools`` and ``iperf3``
+```
+sudo apt install wireguard-tools
+sudo apt install iperf3
+```
+
+Download package. For a GitHub repo, there's a zip at https://github.com/<user>/<repo>/archive/<branch>.zip, so you can download it and then unzip it.
+
+```
+wget https://github.com/cyyself/wg-bench/archive/master.zip
+```
+
+Once ready, just run three codes below in the extracted folder containing scripts, one at a time:
+```
+sudo ./setup-netns.sh
+sudo ./benchmark.sh
+sudo ./clean-up.sh
+```
+
+Results:
+```
+Connecting to host XXX, port YYY
+[  5] local AAA port BBB connected to XXX port YYY
+[ ID] Interval           Transfer     Bitrate         Retr  Cwnd
+[  5]   0.00-1.00   sec   533 MBytes  4.47 Gbits/sec    0   1.13 MBytes
+[  5]   1.00-2.00   sec   528 MBytes  4.43 Gbits/sec    0   1.30 MBytes
+[  5]   2.00-3.00   sec   528 MBytes  4.42 Gbits/sec    0   1.30 MBytes
+[  5]   3.00-4.00   sec   526 MBytes  4.41 Gbits/sec    0   1.45 MBytes
+[  5]   4.00-5.00   sec   526 MBytes  4.41 Gbits/sec    0   1.52 MBytes
+[  5]   5.00-6.00   sec   526 MBytes  4.41 Gbits/sec    0   1.52 MBytes
+[  5]   6.00-7.00   sec   528 MBytes  4.42 Gbits/sec    0   1.52 MBytes
+[  5]   7.00-8.00   sec   529 MBytes  4.44 Gbits/sec    0   1.52 MBytes
+[  5]   8.00-9.00   sec   530 MBytes  4.45 Gbits/sec    0   1.52 MBytes
+[  5]   9.00-10.00  sec   525 MBytes  4.40 Gbits/sec    0   1.60 MBytes
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Retr
+[  5]   0.00-10.00  sec  5.15 GBytes  4.43 Gbits/sec    0             sender
+[  5]   0.00-10.04  sec  5.15 GBytes  4.41 Gbits/sec                  receiver
+
+iperf Done.
+```
+Remember to clean up using above script.
+
 ## Quick Commands
 
 Start/stop interface
